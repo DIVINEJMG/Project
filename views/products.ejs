@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products - DSO Glorious Poultry Farm</title>
+  <style>
+    /* Preserved original styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+    }
+    
+    .header {
+      background: #007bff;
+      color: white;
+      padding: 20px;
+      font-size: 24px;
+      text-align: center;
+    }
+
+    .nav {
+      background: #0056b3;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      margin: 0 5px;
+      transition: background 0.3s ease;
+    }
+
+    .nav a:hover {
+      background: #003f7f;
+      border-radius: 5px;
+    }
+
+    /* Enhanced styles */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 20px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      overflow: hidden;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-image {
+      height: 200px;
+      width: 100%;
+      object-fit: cover;
+      border-bottom: 3px solid #007bff;
+    }
+
+    .product-content {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .product-price {
+      color: #28a745;
+      font-size: 1.4rem;
+      margin: 15px 0;
+    }
+
+    footer {
+      background: #0056b3;
+      color: white;
+      padding: 30px;
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 10px;
+      background: #28a745;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      cursor: pointer;
+      border: none;
+    }
+    .btn:hover {
+      background: #218838;
+    }
+
+    @media (max-width: 768px) {
+      .nav {
+        justify-content: center;
+      }
+      
+      .nav a {
+        margin: 5px;
+        padding: 10px;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">Our Products - DSO Glorious Poultry Farm</div>
+  
+  <nav class="nav">
+    <a href="/">Home</a>
+    <a href="/products">Products</a>
+    <a href="/services">Services</a>
+    <a href="/about">About Us</a>
+    <a href="/faq">FAQ</a>
+    <a href="/contact">Contact</a>
+    <a href="/cart">🛒 Cart</a>
+    <% if (!user) { %>
+      <a href="/auth/login" class="btn">Login</a>
+      <a href="/auth/register" class="btn">Sign Up</a>
+    <% } else { %>
+      <a href="/auth/logout" class="btn">Logout</a>
+    <% } %>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h2>Our Fresh Poultry Products</h2>
+      <p>Select from our high-quality poultry products and add them to your cart</p>
+    </div>
+
+    <div class="product-grid">
+      <% products.forEach(product => { %>
+        <div class="product-card">
+          <img src="<%= product.image %>" alt="<%= product.name %>" class="product-image">
+          <div class="product-content">
+            <h3><%= product.name %></h3>
+            <p><%= product.description %></p>
+            <div class="product-price">$<%= product.price %></div>
+            <% if (user) { %>
+              <button class="btn add-to-cart" data-product-id="<%= product._id %>">Add to Cart</button>
+            <% } else { %>
+              <a href="/auth/login" class="btn">Login to Purchase</a>
+            <% } %>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <p>📞 123-456-7890 | 📍 Farm Address, City</p>
+      <div class="social-links">
+        <a href="#">Facebook</a> | 
+        <a href="#">Instagram</a> | 
+        <a href="#">Twitter</a>
+      </div>
+      <p>© 2023 DSO Glorious Poultry Farm</p>
+    </div>
+  </footer>
+
+  <!-- PRESERVED ORIGINAL SCRIPTS -->
+  <script>
+    var currentUser = <%- JSON.stringify(user || null) %>;
+    console.log("✅ Current user:", currentUser);
+  
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log("✅ DOM loaded");
+  
+      const buttons = document.querySelectorAll(".add-to-cart");
+      console.log("✅ Add to Cart buttons found:", buttons.length);
+  
+      buttons.forEach(button => {
+        button.addEventListener("click", async () => {
+          const productId = button.getAttribute("data-product-id");
+          console.log("🛒 Adding product:", productId);
+  
+          if (!currentUser) {
+            alert("Please log in to add to cart.");
+            window.location.href = "/auth/login";
+            return;
+          }
+  
+          try {
+            const response = await fetch("/api/cart/add", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              credentials: "include",
+              body: JSON.stringify({ productId, quantity: 1 })
+            });
+  
+            const data = await response.json();
+            console.log("🔁 Response:", data);
+  
+            if (response.ok) {
+              alert("✅ Product added to cart!");
+            } else {
+              alert(data.message || "Error adding to cart.");
+            }
+          } catch (error) {
+            console.error("❌ Fetch error:", error);
+            alert("Failed to add to cart.");
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

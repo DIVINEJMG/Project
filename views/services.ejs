@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - DSO Glorious Poultry Farm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+        .header {
+            background: #007bff;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+        }
+        .nav {
+            background: #0056b3;
+            padding: 10px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 5px;
+            display: inline-block;
+        }
+        .nav a:hover {
+            background: #003f7f;
+        }
+        .container {
+            padding: 50px;
+        }
+        .service-card {
+            display: inline-block;
+            background: white;
+            padding: 20px;
+            margin: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        .service-card h4 {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Our Services</div>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+        <a href="/services">Services</a>
+        <a href="/about">About Us</a>
+        <a href="/faq">FAQ</a>
+        <a href="/contact">Contact</a>
+        <% if (!user) { %>
+            <a href="/auth/login" class="btn">Login</a>
+            <a href="/auth/register" class="btn">Sign Up</a>
+          <% } else { %>
+            <a href="/auth/logout" class="btn">Logout</a>
+          <% } %>
+    </div>
+    <div class="container">
+        <h2>What We Offer</h2>
+        <div class="service-card">
+            <h4>Poultry Sales</h4>
+            <p>We offer high-quality live and processed poultry at affordable prices.</p>
+        </div>
+        <div class="service-card">
+            <h4>Farm Consultation</h4>
+            <p>Expert advice on poultry farming, feed management, and disease control.</p>
+        </div>
+        <div class="service-card">
+            <h4>Training Programs</h4>
+            <p>Learn best practices for poultry farming through our hands-on training.</p>
+        </div>
+        <div class="service-card">
+            <h4>Delivery Services</h4>
+            <p>Fast and reliable delivery of poultry products to your location.</p>
+        </div>
+    </div>
+</body>
+</html>

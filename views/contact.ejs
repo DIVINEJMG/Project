@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - DSO Glorious Poultry Farm</title>
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        /* Header */
+        .header {
+            background: #007bff;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Navigation - Perfectly Straight Line */
+        .nav {
+            background: #0056b3;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 18px;
+            margin: 0 2px;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        .nav a:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Main Content Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Contact Sections */
+        .contact-hero {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* Map Section */
+        .map-container {
+            margin: 50px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 400px;
+            border: 0;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .btn {
+            background: #28a745;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: #0056b3;
+            color: white;
+            padding: 30px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-links a:hover {
+            opacity: 0.9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 10px;
+            }
+            
+            .nav a {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 30px 15px;
+            }
+
+            .map-container iframe {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">Contact Us - DSO Glorious Poultry Farm</header>
+    
+    <nav class="nav">
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+        <a href="/services">Services</a>
+        <a href="/about">About Us</a>
+        <a href="/faq">FAQ</a>
+        <a href="/contact">Contact</a>
+        <% if (!user) { %>
+            <a href="/auth/login" style="background: #28a745; margin-left: 15px;">Login</a>
+            <a href="/auth/register" style="background: #218838;">Sign Up</a>
+        <% } else { %>
+            <a href="/auth/logout" style="background: #dc3545;">Logout</a>
+        <% } %>
+    </nav>
+
+    <div class="container">
+        <div class="contact-hero">
+            <h1>Get in Touch</h1>
+            <p>We're here to help! Reach out anytime</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-card">
+                <span class="contact-icon">📞</span>
+                <h2>Call Us</h2>
+                <p>+123 4567-890</p>
+                <p>Mon-Fri: 8AM - 6PM</p>
+            </div>
+
+            <div class="contact-card">
+                <span class="contact-icon">📧</span>
+                <h2>Email Us</h2>
+                <p>contact@dsopoultry.com</p>
+                <p>Response within 24 hours</p>
+            </div>
+        </div>
+
+        <div class="map-container">
+            <h2 style="text-align: center; margin-bottom: 20px;">Our Location</h2>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.952912259796!2d3.375295414558215!3d6.524479224019207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8b2ae68280c1%3A0xdc9e87a367c3d9cb!2sLagos!5e0!3m2!1sen!2sng!4v1623334573823!5m2!1sen!2sng" 
+                loading="lazy">
+            </iframe>
+        </div>
+
+        <div class="contact-form">
+            <div class="contact-card">
+                <h2>Send Us a Message</h2>
+                <form action="/submit-contact" method="POST">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="6" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>📍 123 Poultry Farm Road, Agric City, Nigeria</p>
+            <p>📞 +234 812 345 6789 | 📧 info@dsopoultry.com</p>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+            </div>
+            <p style="margin-top: 20px;">© 2023 DSO Glorious Poultry Farm. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

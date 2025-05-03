@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - DSO Glorious Farm</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2E7D32;
+            --secondary-color: #FFD700;
+            --hover-color: #1B5E20;
+        }
+
+        body {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('/images/farm-login-bg.jpg') center/cover fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ONLY CHANGED THIS VALUE FROM 400px TO 800px */
+        .login-container {
+            max-width: 800px; /* Changed width */
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            margin: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-header {
+            background: var(--primary-color);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .brand-logo {
+            width: 80px;
+            margin-bottom: 1rem;
+        }
+
+        .login-form {
+            padding: 2rem;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+            padding-left: 40px;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 8px rgba(46, 125, 50, 0.2);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            padding: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: var(--hover-color);
+            transform: translateY(-2px);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+        }
+
+        @media (max-width: 576px) {
+            .login-container {
+                margin: 15px;
+            }
+            
+            .login-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ALL HTML CONTENT REMAINS EXACTLY THE SAME -->
+    <div class="login-container">
+        <div class="login-header">
+            <img src="/images/logo.png" alt="DSO Glorious Farm" class="brand-logo">
+            <h2 class="text-white mb-0">Welcome Back Farmer</h2>
+            <p class="text-white-50 mb-0">Access your agricultural dashboard</p>
+        </div>
+
+        <div class="login-form">
+            <% if (error_msg) { %>
+                <div class="alert alert-danger d-flex align-items-center mb-4">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    <%= error_msg %>
+                </div>
+            <% } %>
+
+            <form action="/auth/login" method="POST">
+                <div class="mb-4">
+                    <label class="form-label">Username</label>
+                    <div class="position-relative">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" 
+                               class="form-control" 
+                               name="username" 
+                               placeholder="Enter your username"
+                               required>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Password</label>
+                    <div class="position-relative">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" 
+                               class="form-control" 
+                               name="password" 
+                               placeholder="Enter your password"
+                               required
+                               id="password">
+                        <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">
+                            Remember me
+                        </label>
+                    </div>
+                    <a href="/auth/forgot-password" class="text-decoration-none" style="color: var(--primary-color);">
+                        Forgot Password?
+                    </a>
+                </div>
+
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                    </button>
+                </div>
+
+                <div class="text-center">
+                    <p class="mb-0">
+                        New to our farm? 
+                        <a href="/auth/register" class="text-decoration-none fw-bold" style="color: var(--primary-color);">
+                            Create Account
+                        </a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Password visibility toggle remains the same
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function() {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+</body>
+</html>
